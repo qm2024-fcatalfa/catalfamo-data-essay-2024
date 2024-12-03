@@ -2,16 +2,21 @@ library("tidyvere")
 
 df <- subset(data, var != "NA")
 
-ggplot(data, aes(citation, fill = var)) +
+# Introduction
+ggplot(data, aes(citation)) +
+  geom_bar() +
+  theme_bw()
+
+ggplot(df, aes(citation, fill = var)) +
   geom_bar() +
   theme_bw() +
   facet_wrap(~ var)
 
-ggplot(data, aes(var)) +
-  geom_bar() +
-  theme_bw()
 
-summary(data)
-
-table(data$var, data$citation)
-
+# Simulation
+ggplot(pl.line, aes(x = line, y = val, group = cat)) +
+  geom_line() +
+  theme_bw() +
+  geom_point(pl.dot, map = aes(x = line, y = val, group = cat)) +
+  geom_point(pl.line, map = aes(x = line, y = val, group = cat)) +
+  geom_vline(xintercept = 0, colour = "red", linetype = "dotted")

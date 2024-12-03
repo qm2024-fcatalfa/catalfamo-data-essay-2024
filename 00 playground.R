@@ -1,6 +1,6 @@
 load("data/data_essay24_data.Rdata")
 
-pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork")
+pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven")
 
 lapply(pack, library, character.only=TRUE)
 

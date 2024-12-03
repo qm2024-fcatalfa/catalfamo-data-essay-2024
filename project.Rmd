@@ -67,6 +67,8 @@ Var characteristics
 
 Inluce the note at the end of *01 model.R* in the text here
 
+The code fits two models—a Poisson regression (m1) and a Negative Binomial regression (m2)—to count data (citation) with predictors (female, minority, and their interaction). The Poisson model assumes the mean equals the variance, while the Negative Binomial model allows for overdispersion (variance > mean). Log-likelihoods of the two models (L1 and L2) are compared using a Likelihood Ratio Test (LRT), with the test statistic following a chi-squared distribution with 1 degree of freedom. The null hypothesis (H₀) is that the Poisson model is sufficient, while the alternative (H₁) suggests the Negative Binomial provides a better fit. If LRT > qchisq(0.95, df = 1) evaluates to TRUE, H₀ is rejected, indicating significant overdispersion and the superiority of the Negative Binomial model.
+
 ### Hypothesis 1
 
 ### Hypothesis 2
