@@ -1754,12 +1754,59 @@ display: none;
 <!-- rnb-text-begin -->
 <div id="intro" class="section level1">
 <h1>Intro</h1>
+<div id="data-description" class="section level2">
+<h2>Data description</h2>
+<p>Variables included:</p>
+<p><strong>Dependent variable</strong></p>
+<ul>
+<li><em>citation</em></li>
+</ul>
+<p>The variable <em>citation_5yr_diff_circ_2022</em> indicates the
+number of times a certain judicial decision made by a judge was cited in
+following decisions by other judges in the five years following the
+initial decision.</p>
+<p><strong>Main independent variables</strong></p>
+<ul>
+<li><em>female</em></li>
+</ul>
+<p>Var characteristics:</p>
+<p>The variable <em>femaleOA</em> is a dummy variable and indicates if
+the judge of the case was male (0) or female (1). Looking at the values
+contained in the database, it is possible to observe that there are 2045
+male judges and 637 female judges.</p>
+<ul>
+<li><em>minority</em></li>
+</ul>
+<p>The variable <em>OAminority</em> is a dummy variable and indicates if
+the judge of the case was white (0) or non-white (1). Looking at the
+values contained in the database, it is possible to observe that there
+are 2426 white judges and 478 non-white judges.</p>
+<p>Var characteristics</p>
+<p><strong>Control variables</strong></p>
+<ul>
+<li><p><em>authorities_deep</em></p></li>
+<li><p><em>OAls_elite</em></p></li>
+<li><p><em>OAtenure_ln</em></p></li>
+<li><p><em>constit</em></p></li>
+<li><p><em>termmeritsper_activejudge_ln</em></p></li>
+</ul>
 </div>
-<div id="data-description" class="section level1">
-<h1>Data description</h1>
+<div id="summary-statistics" class="section level2">
+<h2>Summary statistics</h2>
+<ul>
+<li>Plot <strong>citation</strong>
+<ul>
+<li>by <em>gender</em>?</li>
+<li>by <em>ethnicity</em>?</li>
+</ul></li>
+<li></li>
+</ul>
+</div>
 </div>
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
+<p>Inluce the note at the end of <em>01 model.R</em> in the text
+here</p>
 <div id="hypothesis-1" class="section level3">
 <h3>Hypothesis 1</h3>
 </div>
@@ -1826,7 +1873,7 @@ display: none;
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgZXNzYXkgcHJvamVjdCINCm91dHB1dDoNCiAgcGRmX2RvY3VtZW50OiBkZWZhdWx0DQogIGh0bWxfbm90ZWJvb2s6IGRlZmF1bHQNCi0tLQ0KDQojIEludHJvDQoNCiMgRGF0YSBkZXNjcmlwdGlvbg0KDQojIEFuYWx5c2lzDQoNCiMjIyBIeXBvdGhlc2lzIDENCg0KIyMjIEh5cG90aGVzaXMgMg0KDQojIyMgSHlwb3RoZXNpcyAzDQoNCiMgU2ltdWxhdGlvbiAoYWthIHNjZW5hcmlvKQ0KDQojIyMgSHlwb3RoZXNpcyAxDQoNCi0gIEludGVyY2VwdDogMQ0KLSAgRmVtYWxlOiAxDQotICBNaW5vcml0eTogMQ0KLSAgSW50ZXJhY3Rpb246IA0KDQpDb21wYXJlDQoNCi0gIEludGVyY2VwdDogMQ0KLSAgRmVtYWxlOiAwDQotICBNaW5vcml0eTogMA0KLSAgSW50ZXJhY3Rpb246IA0KDQojIyMgSHlwb3RoZXNpcyAyDQoNCi0gIEludGVyY2VwdDogMQ0KLSAgRmVtYWxlOiAxDQotICBNaW5vcml0eTogMQ0KLSAgSW50ZXJhY3Rpb246IA0KDQpDb21wYXJlDQoNCi0gIEludGVyY2VwdDogMQ0KLSAgRmVtYWxlOiAxDQotICBNaW5vcml0eTogMA0KLSAgSW50ZXJhY3Rpb246IA0KDQojIyMgSHlwb3RoZXNpcyAzDQoNCi0gIEludGVyY2VwdDogMQ0KLSAgRmVtYWxlOiAxDQotICBNaW5vcml0eTogMQ0KLSAgSW50ZXJhY3Rpb246IA0KDQpDb21wYXJlDQoNCi0gIEludGVyY2VwdDogMQ0KLSAgRmVtYWxlOiAwDQotICBNaW5vcml0eTogMQ0KLSAgSW50ZXJhY3Rpb246IA0KDQojIENvbmNsdXNpb24NCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgZXNzYXkgcHJvamVjdCINCm91dHB1dDoNCiAgcGRmX2RvY3VtZW50OiBkZWZhdWx0DQogIGh0bWxfbm90ZWJvb2s6IGRlZmF1bHQNCi0tLQ0KDQojIEludHJvDQoNCiMjIERhdGEgZGVzY3JpcHRpb24NCg0KVmFyaWFibGVzIGluY2x1ZGVkOg0KDQoqKkRlcGVuZGVudCB2YXJpYWJsZSoqDQoNCi0gICAqY2l0YXRpb24qDQoNClRoZSB2YXJpYWJsZSAqY2l0YXRpb25fNXlyX2RpZmZfY2lyY18yMDIyKiBpbmRpY2F0ZXMgdGhlIG51bWJlciBvZiB0aW1lcyBhIGNlcnRhaW4ganVkaWNpYWwgZGVjaXNpb24gbWFkZSBieSBhIGp1ZGdlIHdhcyBjaXRlZCBpbiBmb2xsb3dpbmcgZGVjaXNpb25zIGJ5IG90aGVyIGp1ZGdlcyBpbiB0aGUgZml2ZSB5ZWFycyBmb2xsb3dpbmcgdGhlIGluaXRpYWwgZGVjaXNpb24uDQoNCioqTWFpbiBpbmRlcGVuZGVudCB2YXJpYWJsZXMqKg0KDQoNCg0KLSAgICpmZW1hbGUqDQoNClZhciBjaGFyYWN0ZXJpc3RpY3M6DQoNClRoZSB2YXJpYWJsZSAqZmVtYWxlT0EqIGlzIGEgZHVtbXkgdmFyaWFibGUgYW5kIGluZGljYXRlcyBpZiB0aGUganVkZ2Ugb2YgdGhlIGNhc2Ugd2FzIG1hbGUgKDApIG9yIGZlbWFsZSAoMSkuIExvb2tpbmcgYXQgdGhlIHZhbHVlcyBjb250YWluZWQgaW4gdGhlIGRhdGFiYXNlLCBpdCBpcyBwb3NzaWJsZSB0byBvYnNlcnZlIHRoYXQgdGhlcmUgYXJlIDIwNDUgbWFsZSBqdWRnZXMgYW5kIDYzNyBmZW1hbGUganVkZ2VzLg0KDQotICAgKm1pbm9yaXR5Kg0KDQpUaGUgdmFyaWFibGUgKk9BbWlub3JpdHkqIGlzIGEgZHVtbXkgdmFyaWFibGUgYW5kIGluZGljYXRlcyBpZiB0aGUganVkZ2Ugb2YgdGhlIGNhc2Ugd2FzIHdoaXRlICgwKSBvciBub24td2hpdGUgKDEpLiBMb29raW5nIGF0IHRoZSB2YWx1ZXMgY29udGFpbmVkIGluIHRoZSBkYXRhYmFzZSwgaXQgaXMgcG9zc2libGUgdG8gb2JzZXJ2ZSB0aGF0IHRoZXJlIGFyZSAyNDI2IHdoaXRlIGp1ZGdlcyBhbmQgNDc4IG5vbi13aGl0ZSBqdWRnZXMuDQoNClZhciBjaGFyYWN0ZXJpc3RpY3MNCg0KKipDb250cm9sIHZhcmlhYmxlcyoqDQoNCg0KDQotICAgKmF1dGhvcml0aWVzX2RlZXAqDQoNCg0KDQotICAgKk9BbHNfZWxpdGUqDQoNCg0KDQotICAgKk9BdGVudXJlX2xuKg0KDQoNCg0KLSAgICpjb25zdGl0Kg0KDQoNCg0KLSAgICp0ZXJtbWVyaXRzcGVyX2FjdGl2ZWp1ZGdlX2xuKg0KDQoNCg0KIyMgU3VtbWFyeSBzdGF0aXN0aWNzDQoNCi0gICBQbG90ICoqY2l0YXRpb24qKg0KICAgIC0gICBieSAqZ2VuZGVyKj8NCiAgICAtICAgYnkgKmV0aG5pY2l0eSo/DQotICAgDQoNCiMgQW5hbHlzaXMNCg0KSW5sdWNlIHRoZSBub3RlIGF0IHRoZSBlbmQgb2YgKjAxIG1vZGVsLlIqIGluIHRoZSB0ZXh0IGhlcmUNCg0KIyMjIEh5cG90aGVzaXMgMQ0KDQojIyMgSHlwb3RoZXNpcyAyDQoNCiMjIyBIeXBvdGhlc2lzIDMNCg0KIyBTaW11bGF0aW9uIChha2Egc2NlbmFyaW8pDQoNCiMjIyBIeXBvdGhlc2lzIDENCg0KLSAgIEludGVyY2VwdDogMQ0KLSAgIEZlbWFsZTogMQ0KLSAgIE1pbm9yaXR5OiAxDQotICAgSW50ZXJhY3Rpb246DQoNCkNvbXBhcmUNCg0KLSAgIEludGVyY2VwdDogMQ0KLSAgIEZlbWFsZTogMA0KLSAgIE1pbm9yaXR5OiAwDQotICAgSW50ZXJhY3Rpb246DQoNCiMjIyBIeXBvdGhlc2lzIDINCg0KLSAgIEludGVyY2VwdDogMQ0KLSAgIEZlbWFsZTogMQ0KLSAgIE1pbm9yaXR5OiAxDQotICAgSW50ZXJhY3Rpb246DQoNCkNvbXBhcmUNCg0KLSAgIEludGVyY2VwdDogMQ0KLSAgIEZlbWFsZTogMQ0KLSAgIE1pbm9yaXR5OiAwDQotICAgSW50ZXJhY3Rpb246DQoNCiMjIyBIeXBvdGhlc2lzIDMNCg0KLSAgIEludGVyY2VwdDogMQ0KLSAgIEZlbWFsZTogMQ0KLSAgIE1pbm9yaXR5OiAxDQotICAgSW50ZXJhY3Rpb246DQoNCkNvbXBhcmUNCg0KLSAgIEludGVyY2VwdDogMQ0KLSAgIEZlbWFsZTogMA0KLSAgIE1pbm9yaXR5OiAxDQotICAgSW50ZXJhY3Rpb246DQoNCiMgQ29uY2x1c2lvbg0K</div>
 
 
 

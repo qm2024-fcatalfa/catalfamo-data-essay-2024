@@ -7,9 +7,66 @@ output:
 
 # Intro
 
-# Data description
+## Data description
+
+Variables included:
+
+**Dependent variable**
+
+-   *citation*
+
+The variable *citation_5yr_diff_circ_2022* indicates the number of times a certain judicial decision made by a judge was cited in following decisions by other judges in the five years following the initial decision.
+
+**Main independent variables**
+
+
+
+-   *female*
+
+Var characteristics:
+
+The variable *femaleOA* is a dummy variable and indicates if the judge of the case was male (0) or female (1). Looking at the values contained in the database, it is possible to observe that there are 2045 male judges and 637 female judges.
+
+-   *minority*
+
+The variable *OAminority* is a dummy variable and indicates if the judge of the case was white (0) or non-white (1). Looking at the values contained in the database, it is possible to observe that there are 2426 white judges and 478 non-white judges.
+
+Var characteristics
+
+**Control variables**
+
+
+
+-   *authorities_deep*
+
+
+
+-   *OAls_elite*
+
+
+
+-   *OAtenure_ln*
+
+
+
+-   *constit*
+
+
+
+-   *termmeritsper_activejudge_ln*
+
+
+
+## Summary statistics
+
+-   Plot **citation**
+    -   by *gender*?
+    -   by *ethnicity*?
+-   
 
 # Analysis
+
+Inluce the note at the end of *01 model.R* in the text here
 
 ### Hypothesis 1
 
@@ -21,44 +78,44 @@ output:
 
 ### Hypothesis 1
 
--  Intercept: 1
--  Female: 1
--  Minority: 1
--  Interaction: 
+-   Intercept: 1
+-   Female: 1
+-   Minority: 1
+-   Interaction:
 
 Compare
 
--  Intercept: 1
--  Female: 0
--  Minority: 0
--  Interaction: 
+-   Intercept: 1
+-   Female: 0
+-   Minority: 0
+-   Interaction:
 
 ### Hypothesis 2
 
--  Intercept: 1
--  Female: 1
--  Minority: 1
--  Interaction: 
+-   Intercept: 1
+-   Female: 1
+-   Minority: 1
+-   Interaction:
 
 Compare
 
--  Intercept: 1
--  Female: 1
--  Minority: 0
--  Interaction: 
+-   Intercept: 1
+-   Female: 1
+-   Minority: 0
+-   Interaction:
 
 ### Hypothesis 3
 
--  Intercept: 1
--  Female: 1
--  Minority: 1
--  Interaction: 
+-   Intercept: 1
+-   Female: 1
+-   Minority: 1
+-   Interaction:
 
 Compare
 
--  Intercept: 1
--  Female: 0
--  Minority: 1
--  Interaction: 
+-   Intercept: 1
+-   Female: 0
+-   Minority: 1
+-   Interaction:
 
 # Conclusion
