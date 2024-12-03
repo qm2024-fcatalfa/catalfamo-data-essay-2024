@@ -1,0 +1,64 @@
+---
+title: "Data essay project"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Intro
+
+# Data description
+
+# Analysis
+
+### Hypothesis 1
+
+### Hypothesis 2
+
+### Hypothesis 3
+
+# Simulation (aka scenario)
+
+### Hypothesis 1
+
+-  Intercept: 1
+-  Female: 1
+-  Minority: 1
+-  Interaction: 
+
+Compare
+
+-  Intercept: 1
+-  Female: 0
+-  Minority: 0
+-  Interaction: 
+
+### Hypothesis 2
+
+-  Intercept: 1
+-  Female: 1
+-  Minority: 1
+-  Interaction: 
+
+Compare
+
+-  Intercept: 1
+-  Female: 1
+-  Minority: 0
+-  Interaction: 
+
+### Hypothesis 3
+
+-  Intercept: 1
+-  Female: 1
+-  Minority: 1
+-  Interaction: 
+
+Compare
+
+-  Intercept: 1
+-  Female: 0
+-  Minority: 1
+-  Interaction: 
+
+# Conclusion
