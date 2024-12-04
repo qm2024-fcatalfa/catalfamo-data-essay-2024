@@ -1,4 +1,4 @@
-# Simulation function
+# Simulation function ----
 sim_function <- function(lm_obj, nsim = 1000, scenario) {
   beta_hat <- coef(lm_obj)
   V_hat <- vcov(lm_obj)
@@ -14,7 +14,7 @@ sim_function <- function(lm_obj, nsim = 1000, scenario) {
   return(EV)
 }
 
-# Hypothesis 1
+# Hypothesis 1 ----
 tenure_range <- seq(min(data$tenure, na.rm = T), max(data$tenure, na.rm = T), length.out = 250)
 authorities_range <- seq(min(data$authorities, na.rm = T), max(data$authorities, na.rm = T), length.out = 250)
 
@@ -51,6 +51,7 @@ scenario2 <-
 set.seed(4547)
 sim_res2 <- sim_function(model4, nsim = 1000, scenario2)
 
+# Hypothesis 2 ----
 ## Scenario 4
 scenario4 <-
   cbind(
@@ -66,6 +67,7 @@ scenario4 <-
 set.seed(4547)
 sim_res4 <- sim_function(model4, nsim = 1000, scenario4)
 
+# Hypothesis 3 ----
 ## Scenario 6
 scenario6 <-
   cbind(
@@ -81,7 +83,7 @@ scenario6 <-
 set.seed(4547)
 sim_res6 <- sim_function(model4, nsim = 1000, scenario6)
 
-#Xbeta values in the response function 
+# First difference ---- 
 exp_1 <- exp(sim_res1)
 exp_2 <- exp(sim_res2)
 exp_4 <- exp(sim_res4)
@@ -101,15 +103,3 @@ ci_fd1.4 <-  quantile(sc1.4, probs = c(0.025, 0.975))
 
 median1.6 <- median(sc1.6) 
 ci_fd1.6 <-  quantile(sc1.6, probs = c(0.025, 0.975))
-
-pl.line <- data.frame(
- line = c(ci_fd1.2, ci_fd1.4, ci_fd1.6),
- val = c(2,2,1,1,0,0),
- cat = c(1,1,2,2,3,3)
-)
-
-pl.dot <- data.frame(
-  line = c(median1.2, median1.4, median1.6),
-  val = c(2,1,0),
-  cat = c(1,2,3)
-)

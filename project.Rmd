@@ -18,8 +18,6 @@ The variable *citation_5yr_diff_circ_2022* indicates the number of times a certa
 
 **Main independent variables**
 
-
-
 -   *female*
 
 Var characteristics:
@@ -48,14 +46,6 @@ Var characteristics
 
 
 
--   *constit*
-
-
-
--   *termmeritsper_activejudge_ln*
-
-
-
 ## Summary statistics
 
 -   Plot **citation**
@@ -67,7 +57,7 @@ Var characteristics
 
 Inluce the note at the end of *01 model.R* in the text here
 
-The code fits two models—a Poisson regression (m1) and a Negative Binomial regression (m2)—to count data (citation) with predictors (female, minority, and their interaction). The Poisson model assumes the mean equals the variance, while the Negative Binomial model allows for overdispersion (variance > mean). Log-likelihoods of the two models (L1 and L2) are compared using a Likelihood Ratio Test (LRT), with the test statistic following a chi-squared distribution with 1 degree of freedom. The null hypothesis (H₀) is that the Poisson model is sufficient, while the alternative (H₁) suggests the Negative Binomial provides a better fit. If LRT > qchisq(0.95, df = 1) evaluates to TRUE, H₀ is rejected, indicating significant overdispersion and the superiority of the Negative Binomial model.
+The code fits two models—a Poisson regression (m1) and a Negative Binomial regression (m2)—to count data (citation) with predictors (female, minority, and their interaction). The Poisson model assumes the mean equals the variance, while the Negative Binomial model allows for overdispersion (variance > mean). Log-likelihoods of the two models (L1 and L2) are compared using a Likelihood Ratio Test (LRT), with the test statistic following a chi-squared distribution with 1 degree of freedom. The null hypothesis (H0) is that the Poisson model is sufficient, while the alternative (H1) suggests the Negative Binomial provides a better fit. If LRT > qchisq(0.95, df = 1) evaluates to TRUE, H0 is rejected, indicating significant overdispersion and the superiority of the Negative Binomial model.
 
 ### Hypothesis 1
 
@@ -82,41 +72,65 @@ The code fits two models—a Poisson regression (m1) and a Negative Binomial reg
 -   Intercept: 1
 -   Female: 1
 -   Minority: 1
--   Interaction:
+-   Authorities: median
+-   Elite: median
+-   Tenure: median
+-   Interaction: 1*1
 
 Compare
 
 -   Intercept: 1
 -   Female: 0
 -   Minority: 0
--   Interaction:
+-   Authorities: median
+-   Elite: median
+-   Tenure: median
+-   Interaction: 0*0
 
 ### Hypothesis 2
 
 -   Intercept: 1
 -   Female: 1
 -   Minority: 1
--   Interaction:
+-   Authorities: median
+-   Elite: median
+-   Tenure: median
+-   Interaction: 1*1
 
 Compare
 
 -   Intercept: 1
 -   Female: 1
 -   Minority: 0
--   Interaction:
+-   Authorities: median
+-   Elite: median
+-   Tenure: median
+-   Interaction: 1*0
 
 ### Hypothesis 3
 
 -   Intercept: 1
 -   Female: 1
 -   Minority: 1
--   Interaction:
+-   Authorities: median
+-   Elite: median
+-   Tenure: median
+-   Interaction: 1*1
 
 Compare
 
 -   Intercept: 1
 -   Female: 0
 -   Minority: 1
--   Interaction:
+-   Authorities: median
+-   Elite: median
+-   Tenure: median
+-   Interaction: 0*1
+
+# Robustness check
+
+
 
 # Conclusion
+
+
