@@ -69,12 +69,19 @@ pl.dot <- data.frame(
   cat = c("a","b","c")
 )
 
+lab <- c("White male
+         Minorities female",
+         "White female
+         Minorities female",
+         "Minorities male
+         Minorities female")
+
 fd <- ggplot(pl.line, aes(x = line, y = val, color = cat)) +
   geom_line(size = 0.5) +
   theme_bw() +
-  geom_point(pl.dot, map = aes(x = line, y = val, group = cat, shape = cat)) +
-  geom_point(pl.line, map = aes(x = line, y = val, group = cat, shape = cat)) +
-  geom_vline(xintercept = 0, colour = "#FF3300", linetype = "dashed", size = 0.75) +
+  geom_point(pl.dot, map = aes(x = line, y = val)) +
+  geom_point(pl.line, map = aes(x = line, y = val)) +
+  geom_vline(xintercept = 0, colour = "#FF3300", linetype = "dashed", linewidth = 0.75) +
   scale_color_manual(values = c("#AAD500", "#80C000", "#64B200")) +
   labs(
     title = "First differences for the three models",
@@ -83,25 +90,29 @@ fd <- ggplot(pl.line, aes(x = line, y = val, color = cat)) +
     x = "First differences and 95% CI",
     y = ""
   ) +
+  scale_y_continuous(breaks = c(0,1,2), limits = c(-0.5,2.5), labels = lab) +
   theme(legend.position = "none",
-        axis.text.y = element_blank(),
+        axis.text = element_text(size = 12),
+        legend.title = element_blank(),
         plot.title = element_text(
           hjust = 0.5, 
-          size = 20,
+          size = 25,
           face = "bold"
         ),
         plot.subtitle = element_text(
           hjust = 0.5, 
-          size = 10,
+          size = 12,
           face = "italic"
-        )) +
-  scale_y_continuous(breaks = c(0,1,2), limits = c(-0.5,2.5))
+        ))
+
+fd
 
 write_rds(fd, "Plot/fd_plot.rds")
 
 ggplot(data, aes(citation, constit)) +
   geom_smooth()
 
-ggplot(df, aes(var)) +
-  geom_bar() +
-  facet_wrap(~elite)
+ggplot(data, aes(tenure)) +
+  geom_boxplot()
+
+summary(data$tenure)

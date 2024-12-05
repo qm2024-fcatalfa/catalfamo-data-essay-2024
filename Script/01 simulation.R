@@ -27,7 +27,7 @@ scenario1 <-
     1,                                        # intercept
     1,                                        # female
     1,                                        # minority
-    median(data$tenure, na.rm = T),           # tenure
+    mean(data$tenure, na.rm = T),             # tenure
     median(data$authorities, na.rm = T),      # authorities
     median(data$elite, na.rm = T),            # elite
     1*1                                       # interaction term
@@ -42,7 +42,7 @@ scenario2 <-
     1,                                        # intercept
     0,                                        # female
     0,                                        # minority
-    median(data$tenure, na.rm = T),           # tenure
+    mean(data$tenure, na.rm = T),             # tenure
     median(data$authorities, na.rm = T),      # authorities
     median(data$elite, na.rm = T),            # elite
     0*0                                       # interaction term
@@ -58,7 +58,7 @@ scenario4 <-
     1,                                        # intercept
     1,                                        # female
     0,                                        # minority
-    median(data$tenure, na.rm = T),           # tenure
+    mean(data$tenure, na.rm = T),             # tenure
     median(data$authorities, na.rm = T),      # authorities
     median(data$elite, na.rm = T),            # elite
     1*0                                       # interaction term
@@ -74,7 +74,7 @@ scenario6 <-
     1,                                        # intercept
     0,                                        # female
     1,                                        # minority
-    median(data$tenure, na.rm = T),           # tenure
+    mean(data$tenure, na.rm = T),             # tenure
     median(data$authorities, na.rm = T),      # authorities
     median(data$elite, na.rm = T),            # elite
     0*0                                       # interaction term

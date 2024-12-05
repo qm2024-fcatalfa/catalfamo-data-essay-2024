@@ -3,12 +3,19 @@ title: "Data essay project"
 data: "11/10/2024"
 output:
   pdf_document: default
+header-includes:
+  - \usepackage{setspace}
 ---
+
 ```{r include=FALSE}
-pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven", "readr", "knitr")
+pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven", "readr", "knitr", "bookdown")
 
 lapply(pack, library, character.only=TRUE)
 ```
+
+\newpage
+
+\doublespacing
 
 # Intro
 
@@ -16,9 +23,11 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 ## Data description
 
-The variable *citation_5yr_diff_circ_2022* is the dependent variable of the research and measures the number of times a judicial decision has been cited by other judges in appellate court decisions over the five-year period following its original publication. The number of citations serves as a key indicator of the influence and authority of the decision within the legal field. Citations are often used as a measure of the decision's legal significance, as they reflect how frequently other judges reference a particular decision when making their own rulings. A higher citation count typically suggests that the decision has had a greater impact on subsequent legal proceedings and is viewed as more authoritative or persuasive by other judges.
+The variable *citation_5yr_diff_circ_2022* is the dependent variable of the research and measures the number of times a judicial decision has been cited by other judges in appellate court decisions over the five-year period following its original publication. The number of citations serves as a key indicator of the influence and authority of the decision within the legal field. Citations are often used as a measure of the decision's legal significance, as they reflect how frequently other judges reference a particular decision when making their own rulings. A higher citation count typically suggests that the decision has had a greater impact on subsequent legal proceedings and is viewed as more authoritative or persuasive by other judges. The histogram in *Figure \@ref(fig:fig1)* shows that the dependent variable has a highly right-skewed distribution. Most court decisions receive few or no citations, as indicated by the large zero bar, while a smaller number of decisions achieve high citation counts, resulting in a long tail. This skewness is expected, reflecting the uneven influence of court decisions, with only a minority of cases having significant legal impact. Given this distribution, a negative binomial regression is appropriate to analyze the data, as it is suited for count variables with over dispersion.
 
-```{r echo=FALSE, fig.width=12, fig.height=8}
+\newpage
+
+```{r fig1, echo=FALSE, fig.cap="Distribution of the judicial citation"}
 plot1 <- read_rds("Plot/cit_plot.rds")
 
 plot1
@@ -32,9 +41,9 @@ The variable *femaleOA* is a dummy variable indicating the gender of the judge w
 
 The variable *OAminority* is a dummy variable indicating whether the judge belongs to an ethnic minority. It is coded as 1 if the judge is non-white and 0 if the judge is white. Looking at the values contained in the database, it is possible to observe that there are 2426 white judges and 478 non-white judges. Taking these values into consideration, it is possible to observe how the judicial system appears to be composed of a clear prevalence of white judges rather than judges belonging to ethnic minorities.
 
-Consequently, by observing the values reported in the graph below it is possible to verify the distribution of the number of citations for both the main independent variables, namely gender and ethnic group. Looking at the graph it is possible to notice the high presence of white-male judges, who are more than all the other three categories added together. On the contrary, the group that appears to be at the center of the analysis, namely women belonging to ethnic minorities, appears to be the one with the least representation within the data set.
+Consequently, by observing the values reported in *Figure \@ref(fig:fig2)* below it is possible to verify the distribution of the number of citations for both the main independent variables, namely gender and ethnic group. Looking at the graph it is possible to notice the high presence of white-male judges, who are more than all the other three categories added together. On the contrary, the group that appears to be at the center of the analysis, namely women belonging to ethnic minorities, appears to be the one with the least representation within the data set.
 
-```{r echo=FALSE}
+```{r fig2, echo=FALSE, fig.cap="Distribution of race and gender"}
 plot2 <- read_rds("Plot/ge_plot.rds")
 
 plot2
@@ -42,28 +51,27 @@ plot2
 
 ### Control variables
 
--   *authorities_deep*
+To ensure robust and unbiased results, the decision was made to include some key control variables, *OAls_elite*, *authorities_deep* and *OAtenure_ln* that address the factors that influence court citations. The key descriptive statistics for these three variables are reported in Table \@ref(tab:) at the end of this section.
+
 Reliance on existing precedents is widely recognized as a key indicator of legal quality, with decisions that heavily draw upon precedent often perceived as more rigorous and thorough in their legal reasoning. The variable *authorities_deep* serves as a crucial control variable in analyses aimed at understanding the factors driving citations of judicial decisions. By accounting for the extent to which a decision is rooted in precedent, researchers can more accurately differentiate between citations motivated by the inherent quality of the legal reasoning and those potentially influenced by demographic attributes of the judge. This variable helps to capture the depth and quality of the decision-making process, as decisions that reflect a strong foundation in established legal principles are typically more persuasive and therefore more likely to be cited in future cases. Controlling for reliance on precedent ensures that the evaluation of citations is not skewed by variations in legal quality, allowing for a more nuanced understanding of how demographic factors might influence citation patterns.
 
--   *OAls_elite*
 Judges who graduated from elite law schools often enjoy a perception of enhanced authority and credibility, which can significantly influence the frequency with which their decisions are cited. This association stems from the prestige and perceived competence linked to attendance at these institutions. By incorporating the variable *OAls_elite* into the analysis, researchers can account for the citation advantage that may arise from a judge's educational background, independent of the substantive quality of their decisions or their demographic attributes. This control ensures that the analysis distinguishes between citations driven by the judge’s perceived authority—rooted in educational prestige—and those influenced by demographic factors. Educational pedigree can contribute to external perceptions of competence and authority and controlling for this variable allows for a more accurate assessment of how demographic characteristics, such as the two main independent variables of this analysis, influence the recognition of judicial work, free from the overshadowing effects of educational prestige.
 
--   *OAtenure_ln*
 Judicial tenure plays a crucial role in shaping a judge's experience and institutional knowledge, which can enhance the authority and influence of their decisions. Judges with longer service are often perceived as more experienced and knowledgeable about court processes, making their rulings more likely to be cited. Including *OAtenure_ln* as a variable in the analysis helps disentangle the effects of professional experience from those of demographic characteristics. This measure, represented as the logged number of years a judge has served on the Court of Appeals, provides an indicator of expertise and seniority. By accounting for this factor, the analysis controls for variations in citation patterns driven by professional experience, ensuring that observed differences are not mistakenly attributed to demographic attributes. In this way, the inclusion of tenure mitigates bias and allows for a clearer understanding of how demographic characteristics influence citation rates, independent of the judge’s institutional knowledge or professional longevity.
 
-```{r echo=FALSE}
+```{r tab1, echo=FALSE}
 desc <- read_rds("data/desc.rds")
 
-kable(desc, row.names = FALSE)
+kable(desc, caption = "Summary statitics of the control variables")
 ```
 
-The inclusion of these variables ensures that the model accounts for key factors influencing citation patterns beyond demographic attributes. This approach minimizes omitted variable bias, strengthens causal inference, and allows for a more accurate assessment of the impact of gender and minority status on judicial influence. These variables collectively enable the isolation of the hypothesized effects, ensuring that any observed differences are robust and attributable to the judges' demographic characteristics rather than extraneous factors.
+The inclusion of these variables ensures that the model accounts for key factors influencing citation patterns beyond demographic attributes. This approach should minimizes omitted variable bias, strengthens causal inference, and allows for a more accurate assessment of the impact of gender and minority status on judicial influence. These variables collectively enable the isolation of the hypothesized effects, ensuring that any observed differences are robust and attributable to the judges' demographic characteristics rather than extraneous factors.
 
 # Analysis
 
-Incluce the note at the end of *01 model.R* in the text here
+Before we can present the models, it is necessary to explain why the chosen regression type is *Negative Binomial* and not *Poisson*. After testing both models, a Likelihood Ratio Test (overdispersion) was applied to decide between the Poisson and Negative Binomial specifications. The results show how the Negative Binomial model is more efficient in representing the data used in the regression. 
 
-The code fits two models—a Poisson regression (m1) and a Negative Binomial regression (m2)—to count data (citation) with predictors (female, minority, and their interaction). The Poisson model assumes the mean equals the variance, while the Negative Binomial model allows for overdispersion (variance \> mean). Log-likelihoods of the two models (L1 and L2) are compared using a Likelihood Ratio Test (LRT), with the test statistic following a chi-squared distribution with 1 degree of freedom. The null hypothesis (H0) is that the Poisson model is sufficient, while the alternative (H1) suggests the Negative Binomial provides a better fit. If LRT \> qchisq(0.95, df = 1) evaluates to TRUE, H0 is rejected, indicating significant overdispersion and the superiority of the Negative Binomial model.
+
 
 $$
 citation = \beta_0\:+\:\beta_1*female\:+\:\beta_2*minority\:+\:\beta_3*female*minority\:+\:\beta_4*authorities\:+\:\beta_5*elite\:+\:\beta_6*tenure
@@ -75,7 +83,8 @@ star <- read_rds("data/model.rds")
 stargazer(
   star,
   out = "table_lab.tex",
-  title = "Regression Results",
+  title = "Results of the negative binomial models",
+  
   intercept.bottom = F,
   covariate.labels = c(
     "Constant",
@@ -111,7 +120,7 @@ To assess the presence of significant differences between gender and ethnic grou
 -   Authorities: median
 -   Elite: median
 -   Tenure: median
--   Interaction: 1*1
+-   Interaction: 1\*1
 
 Compare
 
@@ -121,7 +130,7 @@ Compare
 -   Authorities: median
 -   Elite: median
 -   Tenure: median
--   Interaction: 0*0
+-   Interaction: 0\*0
 
 ### Hypothesis 2
 
@@ -131,7 +140,7 @@ Compare
 -   Authorities: median
 -   Elite: median
 -   Tenure: median
--   Interaction: 1*1
+-   Interaction: 1\*1
 
 Compare
 
@@ -141,7 +150,7 @@ Compare
 -   Authorities: median
 -   Elite: median
 -   Tenure: median
--   Interaction: 1*0
+-   Interaction: 1\*0
 
 ### Hypothesis 3
 
@@ -151,7 +160,7 @@ Compare
 -   Authorities: median
 -   Elite: median
 -   Tenure: median
--   Interaction: 1*1
+-   Interaction: 1\*1
 
 Compare
 
@@ -161,9 +170,9 @@ Compare
 -   Authorities: median
 -   Elite: median
 -   Tenure: median
--   Interaction: 0*1
+-   Interaction: 0\*1
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.cap="First difference"}
 plot3 <- read_rds("Plot/fd_plot.rds")
 
 plot3
