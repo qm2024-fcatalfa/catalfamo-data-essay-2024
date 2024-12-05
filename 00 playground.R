@@ -1,6 +1,6 @@
 load("data/data_essay24_data.Rdata")
 
-pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven")
+pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven", "knitr")
 
 lapply(pack, library, character.only=TRUE)
 
@@ -14,10 +14,10 @@ data$female <- as.factor(data$female)
 data$minority <- as.factor(data$minority)
 
 # idea
-data$var <- ifelse(data$female == 1 & data$minority == 1, "f.m",
-            ifelse(data$female == 1 & data$minority == 0, "f.w",
-            ifelse(data$female == 0 & data$minority == 1, "m.m",
-            ifelse(data$female == 0 & data$minority == 0, "m.w", NA))))
+data$var <- ifelse(data$female == 1 & data$minority == 1, "Female-Minority",
+            ifelse(data$female == 1 & data$minority == 0, "Female-White",
+            ifelse(data$female == 0 & data$minority == 1, "Male-Minority",
+            ifelse(data$female == 0 & data$minority == 0, "Male-White", NA))))
 
 table(data$var)
 colSums(is.na(data))

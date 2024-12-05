@@ -20,9 +20,13 @@ model4 <- glm.nb(citation ~ female * minority +
                  control = glm.control(maxit = 100))
 summary(model4)
 
+list <- list(model3, model4)
+
+write_rds(list, "data/model.rds")
+
 # Stargazer ----
 stargazer(
-  list(model3, model4),
+  list,
   out = "table_lab.tex",
   title = "Regression Results",
   intercept.bottom = F,

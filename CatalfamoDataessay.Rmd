@@ -1,9 +1,10 @@
 ---
-title: "Data essay project"
-data: "11/10/2024"
-output:
-  pdf_document: default
+title: "QM - Data essay"
+author: "Francesco Catalfamo"
+date: "2024-12-11"
+output: pdf_document
 ---
+
 ```{r include=FALSE}
 pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven", "readr", "knitr")
 
