@@ -2,7 +2,7 @@ load("data/data_essay24_data.Rdata")
 
 pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven", "knitr")
 
-lapply(pack, library, character.only=TRUE)
+lapply(pack, library, character.only=T)
 
 name <- c("citation", "authorities", "female", "minority",
           "elite", "tenure", "constit", "termmeritsper",

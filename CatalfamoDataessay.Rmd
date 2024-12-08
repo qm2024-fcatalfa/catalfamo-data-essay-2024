@@ -1,16 +1,22 @@
 ---
-title: "QM - Data essay"
+title: "Quantitative Methods"
+subtitle: "Data essay"
 author: "Francesco Catalfamo"
 date: "2024-12-11"
 output: 
-  bookdown::pdf_document2
+  pdf_document
 fontsize: 12pt
 geometry: "left=3cm,right=3cm,top=2.5cm,bottom=2.5cm"
 header-includes:
   - \usepackage{setspace}
-  - \usepackage{floatrow}
-  - \floatsetup[figure]{capposition=top}
-  - \floatsetup[table]{capposition=top}
+  - \usepackage{titlesec}
+  - \usepackage{float}
+  - \doublespacing
+  - \setlength{\parskip}{0pt}
+  - \titlespacing*{\section}{0pt}{*0}{*0}
+  - \titlespacing*{\subsection}{0pt}{*0}{*0}
+  - \setlength{\parskip}{0pt}
+  - \setlength{\parindent}{0pt}
 ---
 
 ```{r include=FALSE}
@@ -19,67 +25,52 @@ pack <- c("tidyverse", "stargazer", "MASS", "optimx", "patchwork", "haven", "rea
 lapply(pack, library, character.only=TRUE)
 ```
 
-\newpage
+# Introduction
 
-\doublespacing
+The main aim of the following analysis is to explore the impact of gender and racial minority status on the number of judicial citations, emphasizing the interaction between these demographic factors. To achieve this goal, the dependent variable of the research will be the frequency of citations received by judicial decisions, reflecting a judge's influence and perceived authority within the legal system. Given these premises, it is important to highlight that the two main independent variables will be related to the gender and ethnic origins of the judge who issued each of the sentences under analysis. By examining the interaction between these variables, the analysis investigates whether female judges from minorities face compounded disadvantages in citation patterns, offering insights into the role of intersectionality in shaping judicial influence.
 
-# Intro
+The variable *citation_5yr_diff_circ_2022* is the dependent variable, measuring the number of times appellate court decisions are cited over five years after publication. Citations are a key indicator of a decision's influence and authority in the legal field, beacuse a higher citation count suggests greater impact and authority. The histogram in *Figure 1* shows a right-skewed distribution, with most decisions receiving few or no citations, while a few have high citation counts. This skewness indicates uneven influence, with only a minority of cases having significant legal impact. Given this, a negative binomial regression is used, as it is suited for count variables with overdispersion. 
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-## Data description
-
-The variable *citation_5yr_diff_circ_2022* is the dependent variable, measuring the number of times appellate court decisions are cited over five years after publication. Citations are a key indicator of a decision's influence and authority in the legal field. A higher citation count suggests greater impact and authority. The histogram in *Figure \@ref(fig:fig1)* shows a right-skewed distribution, with most decisions receiving few or no citations, while a few have high citation counts. This skewness indicates uneven influence, with only a minority of cases having significant legal impact. Given this, a negative binomial regression is used, as it is suited for count variables with overdispersion.
-
-\newpage
-
-```{r fig1, echo=FALSE, fig.cap="Distribution of the judicial citation"}
+```{r fig-citation, echo=FALSE, fig.cap="Distribution of the judicial citation", fig.pos='H'}
 plot1 <- read_rds("Plot/cit_plot.rds")
 
 plot1
 ```
 
-The two main independent variables used in the analysis that will be presented in the following pages are *femaleOA* and *OAminority*, that is, the two dichotomous variables that indicate the gender and ethnic origin of the judge who issued the sentence.
+As anticipated in the introduction, the main independent variables used are *femaleOA* and *OAminority*, two dichotomous variables indicating the gender and ethnic origin of the judge who issued the sentence.
 
-The variable *femaleOA* is a dummy variable indicating the gender of the judge who authored each of the decision in the dataset. It is coded as 1 if the judge is female and 0 if the judge is male. Looking at the values contained in the database, it is possible to observe that there are 2045 male judges and 637 female judges. Considering these values, it is possible to argue that, at least within our data set, the judicial system being analyzed is still mostly composed of men, given their clear predominance.
+The variable *femaleOA* is a dummy variable indicating the gender of the judge who authored each of the decisions in the dataset. It is coded as 1 if the judge is female and 0 if the judge is male. Looking at the values contained in the database, it is possible to observe that there are 2045 male judges and 637 female judges. Considering these values, it is possible to argue that, at least within our data set, the judicial system being analyzed is still mostly composed of men, given their clear predominance.
 
-The variable *OAminority* is a dummy variable indicating whether the judge belongs to an ethnic minority. It is coded as 1 if the judge is non-white and 0 if the judge is white. Looking at the values contained in the database, it is possible to observe that there are 2426 white judges and 478 non-white judges. Taking these values into consideration, it is possible to observe how the judicial system appears to be composed of a clear prevalence of white judges rather than judges belonging to ethnic minorities.
+The variable *OAminority* is a dummy variable indicating whether the judge belongs to an ethnic minority. It is coded as 1 if the judge is non-white and 0 if the judge is white. Examining the values present in the dataset, it is possible to observe that there are 2426 white judges and 478 non-white judges. Taking these values into consideration, it is possible to observe how the judicial system appears to be composed of a clear prevalence of white judges rather than judges belonging to ethnic minorities.
 
-Consequently, by observing the values reported in *Figure \@ref(fig:fig2)* below it is possible to verify the distribution of the number of citations for both the main independent variables, namely gender and ethnic group. Looking at the graph it is possible to notice the high presence of white-male judges, who are more than all the other three categories added together. On the contrary, the group that appears to be at the center of the analysis, namely women belonging to ethnic minorities, appears to be the one with the least representation within the data set.
+Consequently, by observing the values reported in *Figure 2* below it is possible to verify the distribution of the number of citations for both the main independent variables, namely gender and ethnic group. Looking at the graph it is possible to notice the high presence of white-male judges, who are more than all the other three categories added together. On the contrary, the group that appears to be at the center of the analysis, namely women belonging to ethnic minorities, appears to be the one with the least representation within the data set.
 
-```{r fig2, echo=FALSE, fig.cap="Distribution of race and gender"}
+```{r fig2, echo=FALSE, fig.cap="Distribution of race and gender", fig.pos='H'}
 plot2 <- read_rds("Plot/ge_plot.rds")
 
 plot2
 ```
 
-In addition to these two variables, the decision made was to include their interaction in order to capture the combined effect of gender and minority status on judicial citations. This approach is crucial because the intersection of these characteristics can lead to unique challenges or biases that are not accounted for by their individual effects. For example, female judges from minority backgrounds may face compounded disadvantages that further amplify their underrepresentation in citations. Including this interaction allows for a more nuanced analysis of whether these overlapping identities create distinct patterns of influence, ensuring that the model accurately reflects the complexity of demographic impacts on legal authority and perceived judicial credibility.
+In addition to these two variables, the decision made was to include their interaction in order to capture the combined effect of gender and minority status on judicial citations. This approach is crucial because the intersection of these characteristics can lead to unique challenges or biases that are not accounted for by their individual effects. Including this interaction allows for a more nuanced analysis of whether these overlapping identities create distinct patterns of influence, ensuring that the model accurately reflects the complexity of demographic impacts on legal authority and perceived judicial credibility. 
 
-\newpage
+Moreover, with the purpose of ensuring robust and unbiased results, the decision made was to include some key control variables, namely *OAls_elite*, *authorities_deep*, and *OAtenure_ln*, that address the factors that could influence court citations. 
 
-Moreover, with the purpose of ensuring robust and unbiased results, the decision was made to include some key control variables, *OAls_elite*, *authorities_deep* and *OAtenure_ln* that address the factors that influence court citations. The key descriptive statistics for these three variables are reported in *Table \@ref(tab:tab1)* at the end of this section.
+Reliance on precedent is a key indicator of legal quality, with decisions based on precedent often seen as more rigorous. The variable *authorities_deep* controls for the extent of reliance on precedent, helping researchers distinguish between citations driven by legal reasoning and those influenced by a judge's demographics. It captures the depth of decision-making, as well-founded decisions are typically more persuasive and cited more. By controlling for precedent reliance, analyses avoid skewing results, allowing for a clearer understanding of how demographic factors affect citation patterns. 
 
-Reliance on precedent is a key indicator of legal quality, with decisions based on precedent often seen as more rigorous. The variable *authorities_deep* controls for the extent of reliance on precedent, helping researchers distinguish between citations driven by legal reasoning and those influenced by a judge's demographics. It captures the depth of decision-making, as well-founded decisions are typically more persuasive and cited more. By controlling for precedent reliance, analyses avoid skewing results, allowing for a clearer understanding of how demographic factors affect citation patterns. Judges from elite law schools are often seen as more authoritative, influencing how frequently their decisions are cited due to the prestige of their education. The *OAls_elite* variable helps account for this citation advantage, separating it from the quality of their decisions or demographic factors. By controlling for educational background, the analysis can better assess how demographic traits, such as the main independent variables, impact citation patterns without the influence of perceived educational prestige. Judicial tenure influences a judge's experience and authority, often making their decisions more likely to be cited. The *OAtenure_ln* variable accounts for the effect of professional experience, represented by the logged years a judge has served on the Court of Appeals. This control separates the impact of tenure from demographic factors, ensuring that citation patterns reflect experience, not just demographic characteristics. Including tenure reduces bias and provides a clearer understanding of how demographics influence citation rates, independent of a judge's expertise and seniority.
+Judges from elite law schools are often seen as more authoritative, influencing how frequently their decisions are cited due to the prestige of their education. The *OAls_elite* variable helps account for this citation advantage, separating it from the quality of their decisions or demographic factors. By controlling for educational background, the analysis can better assess how demographic traits, such as the main independent variables, impact citation patterns without the influence of perceived educational prestige. 
 
-```{r tab1, echo=FALSE, fig.align='center', }
-desc <- read_rds("data/desc.rds")
-
-kable(desc, caption = "Summary statitics of the control variables")
-```
-
-\newpage
+Judicial tenure influences a judge's experience and authority, often making their decisions more likely to be cited. The *OAtenure_ln* variable accounts for the effect of professional experience, represented by the logged years a judge has served on the Court of Appeals. This control separates the impact of tenure from demographic factors, ensuring that citation patterns reflect experience, not just demographic characteristics. Including tenure reduces bias and provides a clearer understanding of how demographics influence citation rates, independent of a judge's expertise and seniority.
 
 Including these variables ensures the model accounts for factors influencing citation patterns beyond demographics, minimizing omitted variable bias, strengthening causal inference, and providing a more accurate assessment of how gender and minority status impact judicial influence. This approach isolates the hypothesized effects, ensuring observed differences are attributable to the judges' demographics, not other factors. Based on this, the model presented in the following pages is designed as follows:
 
 $$
-citation = \beta_0\:+\:\beta_1*female\:+\:\beta_2*minority\:+\:\beta_3*female*minority\:+\:\beta_4*authorities\:+\:\beta_5*elite\:+\:\beta_6*tenure
+\begin{aligned}citation &= \beta_0\:+\:\beta_1*female\:+\:\beta_2*minority\:+\:\beta_3*female*minority\:+  
+\\&\quad \beta_4*authorities\:+\:\beta_5*elite\:+\:\beta_6*tenure\end{aligned}
 $$
 
-# Analysis
+# Negative binomial models
 
-Before we can present the models, it is necessary to explain why the chosen regression type is *Negative Binomial* and not *Poisson*. After testing both models, a Likelihood Ratio Test (overdispersion) was applied to decide between the Poisson and Negative Binomial specifications. The results show how the Negative Binomial model is more efficient in representing the data used in the regression. 
-
-
+Before presenting the models, it is necessary to explain why the chosen regression type is *Negative Binomial* and not *Poisson*. After testing both models, a Likelihood Ratio Test (overdispersion test) was applied to decide between the two hypothesized specifications. The results show that the *Negative Binomial* regression is more efficient in representing the data used in the regression. Consequently, the decision was made to apply the a *Negative Binomila* regression to a single model containing all the control variables that will be exposed in *Table 1*.
 
 ```{r tab2, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 star <- read_rds("data/model.rds")
@@ -93,99 +84,44 @@ stargazer(
     "Constant",
     "Female",
     "Ethnic minority",
+    "Reliance on precedent",
     "Years in Court",
-    "Quality of decision",
     "Elite school",
     "Female*Ethnic minority",
     ""
   ),
   dep.var.labels = c("Number of citation"),
-  model.numbers = F,
+  model.numbers = T,
   header = F
 )
 ```
 
-cat("\\begin{table}[ht]
-\\centering
-\\resizebox{\\textwidth}{!}{", readLines("table.tex"), "}
-\\end{table}")
+Looking at *Model 2* it is possible to notice that the coefficient for the gender variable is negative and statistically significant, indicating that decisions authored by female judges tend to receive fewer citations compared to their male counterparts, suggesting a potential gender bias in how judicial decisions are perceived and referenced. At the same time the variable indicating the presence of ethnic minority has a positive but insignificant coefficient, indicating no clear evidence that minority status alone affects citation patterns. The interaction term is also insignificant, suggesting that the combined effect of being a minority and female seems not to influence citation counts. Looking at the first control variable, it can be seen that relying on existing precedent has a positive and highly significant effect. This result implies that decisions relying more on established precedents are cited more frequently, emphasizing the importance of precedent adherence in enhancing the perceived value and influence of judicial rulings. Simultaneously, the other two control variables appear to be not very significant both because of a high p-value and because of the values of their coefficients. In fact, being from an elite school has a positive but insignificant coefficient while the number of years the judge served in the Court of Appeals has a negative coefficient which is also not very significant, indicating no strong evidence that those variables could affect the number of citation that a judge will receive.
 
-### Hypothesis 1
+# First difference by race and gender
 
-### Hypothesis 2
+To assess gender and ethnic differences as outlined in the hypotheses, it is necessary to control for the expected values from previous models based on the same personal characteristics. This requires four simulations to evaluate the differences across the three hypotheses. The results presented in the graph show the first differences in citation likelihood between minority female judges and three other groups: white males, white females, and minority males. The red vertical line at zero represents no difference in citation rates. Positive values indicate higher citation likelihood for the comparison group relative to minority female judges, while overlapping the red line suggests no statistically significant difference.
 
-### Hypothesis 3
-
-# Simulation (aka scenario)
-
-To assess gender and ethnic differences as outlined in the hypotheses, it is necessary to control for the expected values from previous models based on the same personal characteristics. This requires four simulations to evaluate the differences across the three hypotheses. The first simulation will focus on women (female = 1) from ethnic minorities (non-white = 1). The results will be used to calculate the first differences between simulations involving white men, white women, and non-white men.
-
-### Hypothesis 1
-
--   Intercept: 1
--   Female: 1
--   Minority: 1
--   Authorities: median
--   Elite: median
--   Tenure: median
--   Interaction: 1\*1
-
-Compare
-
--   Intercept: 1
--   Female: 0
--   Minority: 0
--   Authorities: median
--   Elite: median
--   Tenure: median
--   Interaction: 0\*0
-
-### Hypothesis 2
-
--   Intercept: 1
--   Female: 1
--   Minority: 1
--   Authorities: median
--   Elite: median
--   Tenure: median
--   Interaction: 1\*1
-
-Compare
-
--   Intercept: 1
--   Female: 1
--   Minority: 0
--   Authorities: median
--   Elite: median
--   Tenure: median
--   Interaction: 1\*0
-
-### Hypothesis 3
-
--   Intercept: 1
--   Female: 1
--   Minority: 1
--   Authorities: median
--   Elite: median
--   Tenure: median
--   Interaction: 1\*1
-
-Compare
-
--   Intercept: 1
--   Female: 0
--   Minority: 1
--   Authorities: median
--   Elite: median
--   Tenure: median
--   Interaction: 0\*1
-
-```{r echo=FALSE, fig.cap="First difference"}
+```{r fig3, echo=FALSE, fig.cap="First difference", fig.pos='H'}
 plot3 <- read_rds("Plot/fd_plot.rds")
 
 plot3
 ```
 
+White male judges show a significant positive difference in citation rates compared to minority female judges. The confidence intervals do not overlap with zero, indicating that white male judges are cited more frequently. This supports the hypothesis that demographic biases favor white male judges in citation patterns. Minority male judges also demonstrate a citation advantage over minority female judges, with their confidence intervals similarly above zero. This suggests that if there is a bias towards ethnic minorities, it is most evident only in the case of female judges. In contrast, the comparison between white female judges and minority female judges reveals a first difference where the confidence intervals overlap the red line at zero. This indicates that the difference in citation likelihood between these two groups is not statistically significant. This result suggests that while gender and race biases are evident when comparing minority women to male judges, the race difference within gender groups may not be as pronounced. Overall, the results underscore the compounded disadvantages faced by minority female judges, aligning with intersectionality theories, while also highlighting variability in the effects of gender and race across groups.
+
 # Robustness check
 
+To increase the validity of the inferences and to see if the estimated effects of interest are sensitive to changes in the model specifications, a robustness check will be applied which will consist in the removal of the outliers present within the *Model 2* previously exposed. To verify if this check is significant, the simulation results using the values obtained with the new model without outliers are proposed in *Figure 4*.
+
+```{r fig4, echo=FALSE, fig.cap="First difference - Robustness check", fig.pos='H'}
+plot4 <- read_rds("Plot/fd_r_plot.rds")
+
+plot4
+```
+
+The robustness check refines the analysis of citation disparities between minority female judges and other demographic groups. While the positive first difference for white male judges remains statistically significant, as its confidence interval does not overlap with zero, the differences for white female judges and minority male judges do overlap with the zero line. This indicates that their citation advantages relative to minority female judges are not statistically significant when outliers are excluded. The persistence of a significant advantage for white male judges highlights the substantial bias associated with both race and gender. Meanwhile, the reduced significance of the other comparisons suggests that outliers may have influenced the earlier results for these groups. Overall, the robustness check reinforces the conclusion that intersectional biases impact citation patterns, particularly disadvantaging minority female judges.
+
 # Conclusion
+
+The analysis highlights significant disparities in judicial citations based on gender and racial minority status, with compelling evidence of intersectional biases. The initial results reveal that minority female judges receive fewer citations compared to the other groups, with statistically significant differences for white males and minority males. These findings suggest compounded disadvantages for minority female judges, reflecting both gender and racial biases. However, the robustness check, excluding outliers, reveals a more nuanced picture: while white male judges retain a significant citation advantage, the differences between minority females and white females or minority males are no longer statistically significant. This indicates that outliers may have inflated the perceived disadvantages faced by minority female judges relative to these groups. Overall, the results confirm that intersectionality shapes citation patterns, with minority female judges experiencing the greatest barriers. The robustness of white male advantages underscores the persistence of structural inequalities in the legal system.

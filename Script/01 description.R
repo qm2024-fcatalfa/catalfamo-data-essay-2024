@@ -24,20 +24,24 @@ name <- c("Description", "Quality of decision", "Elite school", "Years in court"
 colnames(dd) <- name
 
 min <- as.vector(unlist(dd[1,2:4]))
-med <- as.vector(unlist(round(dd[3,2:4], digits = 0)))
-max <- as.vector(unlist(round(dd[6,2:4], digits = 0)))
+med <- as.vector(unlist(round(dd[3,2:4], digits = 2)))
+mea <- as.vector(unlist(round(dd[4,2:4], digits = 2)))
+max <- as.vector(unlist(round(dd[6,2:4], digits = 2)))
 
 dd2 <- data.frame(
   Var = c("Quality of decision", "Elite school", "Years in court (log)"),
   Min = min,
   Median = med,
+  Mean = mea,
   Max = max
 )
 
-name <- c("Variable", "Minimum", "Median", "Maximum")
+name <- c("Variable", "Minimum", "Median", "Mean", "Maximum")
 
 colnames(dd2) <- name
 
 desc <- data.frame(dd2)
+
+desc <- kable(desc)
 
 write_rds(desc, "data/desc.rds")

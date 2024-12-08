@@ -1,26 +1,16 @@
 # Poisson ----
-model1 <- glm(citation ~ female * minority, 
+model1 <- glm(citation ~ female * minority + 
+                authorities + tenure + elite, 
               family = "poisson", data = data)
 summary(model1)
 
-model2 <- glm(citation ~ + female * minority +
-                constit + tenure + authorities + elite, 
-              family = "poisson", data = data)
-summary(model2)
-
-# Negative binomial ----
-model3 <- glm.nb(citation ~ female * minority, 
-                 data = data,
-                 control = glm.control(maxit = 100))
-summary(model3)
-
 model4 <- glm.nb(citation ~ female * minority + 
-                 tenure + authorities + elite, 
+                 authorities + tenure + elite, 
                  data = data,
                  control = glm.control(maxit = 100))
 summary(model4)
 
-list <- list(model3, model4)
+list <- list(model2)
 
 write_rds(list, "data/model.rds")
 
@@ -34,13 +24,14 @@ stargazer(
     "Constant",
     "Female",
     "Ethnic minority",
-    "Years in Court",
     "Existing precedent",
+    "Years in Court",
     "Elite school",
     "Female*Ethnic minority",
     ""
   ),
   dep.var.labels = c("Number of citation"),
+  column.labels = c("(1)", "(2)"),
   model.numbers = F,
   header = F
 )
